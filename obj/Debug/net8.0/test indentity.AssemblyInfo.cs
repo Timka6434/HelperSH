@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("test indentity")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c3034f3aae78242e070b09e010c98f3fc25bf487")]
 [assembly: System.Reflection.AssemblyProductAttribute("test indentity")]
 [assembly: System.Reflection.AssemblyTitleAttribute("test indentity")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

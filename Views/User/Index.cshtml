@@ -1,0 +1,32 @@
+﻿@model IEnumerable<test_indentity.ViewModels.UserListVM>
+
+@{
+    ViewData["Title"] = "User List";
+}
+
+<h2>User List</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>UserName</th>
+            <th>Email</th>
+            <th>Roles</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>
+                    @foreach (var role in user.Roles)
+                    {
+                        <span class="badge bg-secondary">@role</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -140,3 +140,4 @@ G:\VS projects\test indentity\obj\Debug\net8.0\refint\test indentity.dll
 G:\VS projects\test indentity\obj\Debug\net8.0\test indentity.pdb
 G:\VS projects\test indentity\obj\Debug\net8.0\test indentity.genruntimeconfig.cache
 G:\VS projects\test indentity\obj\Debug\net8.0\ref\test indentity.dll
+G:\VS projects\test indentity\obj\Debug\net8.0\test indentity.sourcelink.json
