@@ -20,7 +20,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(
         options.Password.RequireNonAlphanumeric = false;
         options.Password.RequireLowercase = false;
     }
-    ).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
 var app = builder.Build();
 
@@ -33,14 +33,19 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await DataSeeder.SeedRolesAndAdminUser(services);
+}
 
 app.Run();
