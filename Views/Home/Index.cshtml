@@ -1,8 +1,28 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Главная страница";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-5">
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Добро пожаловать на школьный сайт для подачи заявок на техническое обслуживание!</h1>
+        <p class="lead">Этот сайт предназначен для управления заявками и расходными материалами.</p>
+        <hr class="my-4">
+        <p>С помощью этого сайта вы можете:</p>
+        <ul class="list-unstyled">
+            <li><i class="fas fa-check-circle"></i> Подавать и управлять заявками</li>
+            <li><i class="fas fa-check-circle"></i> Просматривать и редактировать расходные материалы</li>
+            <li><i class="fas fa-check-circle"></i> Просматривать и редактировать Вести учет техники в кабинетах</li>
+            <li><i class="fas fa-check-circle"></i> Управлять пользователями и их ролями</li>
+        </ul>
+        <div class="w-50 mx-auto">
+            @if (User.IsInRole("Director") || User.IsInRole("Teacher") || User.IsInRole("Head Teacher"))
+            {
+            <a class="btn btn-primary btn-lg mt-3" href="@Url.Action("Create", "Request")" role="button">Подать заявку</a>
+            }
+            @if (User.IsInRole("Engineer") || User.IsInRole("Admin"))
+            {
+                <a class="btn btn-primary btn-lg mt-3" href="@Url.Action("Index", "Request")" role="button">Посмотреть заявки</a>
+            }
+            </div>
+    </div>
 </div>

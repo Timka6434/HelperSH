@@ -1,0 +1,32 @@
+﻿@model IEnumerable<test_indentity.Models.CabinetList>
+
+@{
+    ViewData["Title"] = "Управление кабинетами";
+}
+
+<h2 class="text-center">Управление кабинетами</h2>
+<hr class="my-4" style="border-top: 1px solid #ccc;">
+<a asp-action="Create" class="btn btn-primary mb-3">Добавить кабинет</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Номер кабинета</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cabinet in Model)
+        {
+            <tr>
+                <td>@cabinet.FullCabinetName</td>
+                <td >
+                    <a asp-action="Edit" asp-route-id="@cabinet.CabinetId" class="btn btn-primary btn-sm mt-2">Редактировать</a>
+                    <form asp-action="Delete" asp-route-id="@cabinet.CabinetId" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm mt-2">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

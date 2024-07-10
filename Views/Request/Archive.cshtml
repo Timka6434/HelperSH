@@ -1,0 +1,33 @@
+﻿@model IEnumerable<test_indentity.ViewModels.RequestVM>
+
+@{
+    ViewData["Title"] = "Архив заявок";
+}
+
+<h2 class="text-center">Архив заявок</h2>
+<hr class="my-4" style="border-top: 1px solid #ccc;">
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Дата создания</th>
+            <th>Описание</th>
+            <th>Срочность</th>
+            <th>Кабинет</th>
+            <th>Статус</th>
+            <th>Пользователь</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var request in Model)
+        {
+            <tr>
+                <td>@request.CreatedAt</td>
+                <td>@request.Description</td>
+                <td>@request.Urgency</td>
+                <td>@request.Room</td>
+                <td>@request.Status</td>
+                <td>@request.UserName</td>
+            </tr>
+        }
+    </tbody>
+</table>

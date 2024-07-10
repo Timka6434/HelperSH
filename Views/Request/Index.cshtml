@@ -1,0 +1,67 @@
+﻿@model IEnumerable<test_indentity.ViewModels.RequestVM>
+
+@{
+    ViewData["Title"] = "Страница подачи заявки";
+}
+
+@if (User.IsInRole("Director") || User.IsInRole("Head Teacher") || User.IsInRole("Teacher") )
+{
+    <h2 class="text-center">Мои заявки</h2>
+    <hr class="my-4" style="border-top: 1px solid #ccc;">
+}
+else
+{
+    <h2 class="text-center">Журнал Заявок</h2>
+    <hr class="my-4" style="border-top: 1px solid #ccc;">
+}
+@if (User.IsInRole("Engineer") || User.IsInRole("Admin") || User.IsInRole("Director") || User.IsInRole("Head Teacher"))
+    {
+    <p>
+        <a asp-action="GenerateMonthlyReport" class="btn btn-secondary">Сгенерировать отчет по заявкам</a>
+    </p> 
+    }
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Дата создания</th>
+            <th>Описание</th>
+            <th>Срочность</th>
+            <th>Кабинет</th>
+            <th>Тип техники</th>
+            <th>Статус</th>
+            <th>Пользователь</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var request in Model)
+        {
+            <tr class="@((request.Urgency == "срочная") ? "table-warning" : "table-primary")">
+                <td>@request.CreatedAt</td>
+                <td>@request.Description</td>
+                <td>@request.Urgency</td>
+                <td>@request.Room</td>
+                <td>@request.TypeTehnology</td> 
+                <td>@request.Status</td>
+                <td>@request.UserName</td>
+                <td>
+                    @if (request.Status == "активна")
+                    {
+                        @if (User.IsInRole("Engineer"))
+                        {
+                            <form asp-action="Complete" method="post" class="mb-2">
+                                <input type="hidden" name="id" value="@request.Id" />
+                                <button type="submit" class="btn btn-success w-100">Выполнено</button>
+                            </form>
+                        }
+                        <form asp-action="Cancel" method="post">
+                            <input type="hidden" name="id" value="@request.Id" />
+                            <button type="submit" class="btn btn-danger w-100">Отменить</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

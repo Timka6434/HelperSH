@@ -1,0 +1,51 @@
+﻿@model test_indentity.Models.Equipment
+
+@{
+    ViewData["Title"] = "Редактирование оборудования";
+}
+
+<h1 class="text-center">Редактирование оборудования</h1>
+<hr class="my-4" style="border-top: 1px solid #ccc;">
+<div class="row">
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <form asp-action="Edit" method="post">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Наименование</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InventoryNumber" class="control-label">Инвентарный номер</label>
+                <input asp-for="InventoryNumber" class="form-control" />
+                <span asp-validation-for="InventoryNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Location" class="control-label">Место установки</label>
+                <select asp-for="Location" class="form-control">
+                        <option value="">-- Выберите кабинет --</option>
+                        @foreach (var cabinet in ViewBag.Cabinets as List<test_indentity.Models.CabinetList>)
+                        {
+                            <option value="@cabinet.FullCabinetName">@cabinet.FullCabinetName</option>
+                        }
+                    </select>
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label">Описание</label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary mt-2" />
+                <a asp-action="Index" class="btn btn-secondary mt-2">Отмена</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

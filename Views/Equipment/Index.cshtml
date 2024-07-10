@@ -1,0 +1,68 @@
+﻿@model IEnumerable<test_indentity.Models.Equipment>
+
+@{
+    ViewData["Title"] = "Список оборудования";
+    var nameFilter = ViewData["NameFilter"] as string;
+    var inventoryNumberFilter = ViewData["InventoryNumberFilter"] as string;
+    var locationFilter = ViewData["LocationFilter"] as string;
+}
+
+<h1 class="text-center">Список оборудования</h1>
+<hr class="my-4" style="border-top: 1px solid #ccc;">
+
+
+<p class="d-grid gap-2 col-6 mx-auto">
+    @if(!User.IsInRole("Director"))
+    {
+    <a asp-controller="Cabinet" asp-action="Index" class="btn btn-primary">Управление кабинетами</a>
+    <a asp-action="Create" class="btn btn-primary">Создать новую технику</a>    
+    }
+    <hr class="my-4" style="border-top: 1px solid #ccc;">
+    <form asp-action="Index" method="get" class="mb-3">
+        <div class="row mb-3">
+            <div class="col">
+                <input type="text" name="name" value="@nameFilter" class="form-control" placeholder="Поиск по наименованию" />
+            </div>
+            <div class="col">
+                <input type="text" name="inventoryNumber" value="@inventoryNumberFilter" class="form-control" placeholder="Поиск по инвентарному номеру" />
+            </div>
+            <div class="col">
+                <input type="text" name="location" value="@locationFilter" class="form-control" placeholder="Поиск по месту расположения" />
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Поиск</button>
+            </div>
+        </div>
+    </form>
+    <hr class="my-4" style="border-top: 1px solid #ccc;">
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Наименование</th>
+            <th>Инвентарный номер</th>
+            <th>Место расположения</th>
+            <th>Описание</th>
+            <th></th>
+        </tr>
+    </thead>
+    @if (!User.IsInRole("Director"))
+    {
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.InventoryNumber</td>
+                <td>@item.Location</td>
+                <td>@item.Description</td>
+                <td class="d-grid gap-2 col-auto mx-auto">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary">Редактировать</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    }
+</table>

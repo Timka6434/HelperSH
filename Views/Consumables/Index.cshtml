@@ -1,0 +1,52 @@
+﻿@model IEnumerable<test_indentity.Models.Consumable>
+
+@{
+    ViewData["Title"] = "Расходные материалы";
+}
+
+<h2 class="text-center">Расходные материалы</h2>
+<hr class="my-4" style="border-top: 1px solid #ccc;">
+ @if(!User.IsInRole("Director"))
+{
+<a asp-action="Create" class="btn btn-primary mb-3">Создать расходный материал</a>
+}
+<a asp-action="ExportToExcel" class="btn btn-secondary">Выгрузить в Excel</a>
+<hr class="my-4" style="border-top: 1px solid #ccc;">
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">@item.Description</p>
+                    <div class="quantity-buttons">
+                        <p class="card-text mx-2 mb-0">Количество: @item.Quantity</p>
+                            
+                        @if(!User.IsInRole("Director"))
+                        {
+                        <form asp-action="DecreaseQuantity" method="post" class="d-inline">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="btn btn-sm btn-outline-danger">-</button>
+                        </form>
+                        <form asp-action="IncreaseQuantity" method="post" class="d-inline">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="btn btn-sm btn-outline-success">+</button>
+                        </form>
+                        }
+                    </div>
+                    <div class="center-buttons mt-3">
+                        @if (!User.IsInRole("Director"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary mx-1">Редактировать</a>
+                            <form asp-action="Delete" asp-route-id="@item.Id" method="post" class="d-inline" onsubmit="return confirm('Вы уверены, что хотите удалить @item.Name ?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger mx-1">Удалить</button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

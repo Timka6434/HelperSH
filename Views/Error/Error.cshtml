@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "Ошибка";
+}
+
+<div class="container mt-5">
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Ошибка</h1>
+        <p class="lead">@ViewBag.ErrorMessage</p>
+        <hr class="my-4">
+        <a class="btn btn-primary btn-lg mt-3" href="@Url.Action("Index", "Home")" role="button">На главную</a>
+    </div>
+</div>

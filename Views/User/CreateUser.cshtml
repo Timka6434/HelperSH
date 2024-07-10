@@ -1,0 +1,54 @@
+﻿@model test_indentity.ViewModels.CreateUserVM
+
+@{
+    ViewData["Title"] = "Создание нового пользователя";
+}
+
+<h2 class="text-center">Создание нового пользователя</h2>
+
+<form asp-action="CreateUser" method="post">
+    <div class="form-group">
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName" class="form-control" />
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EmailAddress"></label>
+        <input asp-for="EmailAddress" class="form-control" />
+        <span asp-validation-for="EmailAddress" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="UserPassword"></label>
+        <input asp-for="UserPassword" class="form-control" type="password" />
+        <span asp-validation-for="UserPassword" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ConfirmPassword"></label>
+        <input asp-for="ConfirmPassword" class="form-control" type="password" />
+        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SelectedRole"></label>
+        <select asp-for="SelectedRole" class="form-control">
+            <option value="">Выберите роль</option>
+            @foreach (var role in ViewBag.Roles)
+            {
+                <option value="@role.Name">@role.Name</option>
+            }
+        </select>
+        <span asp-validation-for="SelectedRole" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Создать пользователя</button>
+    <a asp-action="Index" class="btn btn-secondary mt-2">Отмена</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
